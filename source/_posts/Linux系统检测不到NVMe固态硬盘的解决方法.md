@@ -5,10 +5,12 @@ categories:
 - Linux
 tags:
 - Linux
-- 固态硬盘
+- 双系统
+- GRUB
+- NVME硬盘
 ---
 
-前不久，在安装Windows与Linux双系统时，使用GRUB生成的系统路口中没有检测到Windows。经检查，发现是Linux没有识别到安装Windows的NVMe固态硬盘。
+在安装Windows与Linux双系统时，使用GRUB生成的系统路口中没有检测到Windows。经检查，发现是Linux没有识别到安装了Windows的NVMe固态硬盘。
 <!-- more -->
 
 # 原因
@@ -30,7 +32,7 @@ tags:
 
 * 步骤三
 
-  进入主板BIOS，然后对硬盘控制器的类型进行修改，将RAID改成AHCI。由于主板品牌较多这里无法一一列	举，具体修改方法可以咨询主板厂家或电脑厂家。
+  进入主板BIOS，对硬盘控制器的类型进行修改，将RAID改成AHCI。由于主板品牌较多这里无法一一列举，具体修改方法可以咨询主板厂家或电脑厂家。
 
   硬盘控制器类型修改完成后就可以直接进入Windows系统了，此时为"安全模式"。
 

@@ -40,8 +40,4 @@ C:\>"C:\Program Files\Java\jdk1.8.0_241\bin\javac" MyClass.java
 
 *不要把任何Java核心库添加到`CLASS_PATH`中！JVM根本不依赖`CLASS_PATH`加载核心库！*
 
-如果没有设置系统环境变量，也没有传入`-cp`参数，那么JVM默认的`classpath`为`.`（`.`表示当前目录，默认的当前目录`.`对于绝大多数情况都够用了）---
-title: JDK的安装的那些事
-date: 2020-07-13 16:57:39
-tags:
----
+如果没有设置系统环境变量，也没有传入`-cp`参数，那么JVM默认的`classpath`为`.`（`.`表示当前目录，默认的当前目录`.`对于绝大多数情况都够用了）
