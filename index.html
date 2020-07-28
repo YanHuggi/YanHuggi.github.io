@@ -260,6 +260,279 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.huggi.top/2020/07/27/MySQL%E8%A7%86%E5%9B%BE%E3%80%81%E7%B4%A2%E5%BC%95%E3%80%81%E4%BA%8B%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yan Huggi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花枝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/27/MySQL%E8%A7%86%E5%9B%BE%E3%80%81%E7%B4%A2%E5%BC%95%E3%80%81%E4%BA%8B%E5%8A%A1/" itemprop="url">MySQL视图、索引、事务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-27T20:00:00+08:00">
+                2020-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">评论条数&#58;</span>
+                
+                <a href="/2020/07/27/MySQL%E8%A7%86%E5%9B%BE%E3%80%81%E7%B4%A2%E5%BC%95%E3%80%81%E4%BA%8B%E5%8A%A1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/07/27/MySQL%E8%A7%86%E5%9B%BE%E3%80%81%E7%B4%A2%E5%BC%95%E3%80%81%E4%BA%8B%E5%8A%A1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+          
+             <span id="/2020/07/27/MySQL%E8%A7%86%E5%9B%BE%E3%80%81%E7%B4%A2%E5%BC%95%E3%80%81%E4%BA%8B%E5%8A%A1/" class="leancloud_visitors" data-flag-title="MySQL视图、索引、事务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-视图"><a href="#1-视图" class="headerlink" title="1. 视图"></a>1. 视图</h1><p>视图就是一条<code>SELECT</code>语句执行后返回的结果集</p>
+<p>视图是对若干张基本表的引用，是一张虚拟表，查询语句执行的结果，不存储具体的数据（基本表数据发生了改变，视图也会跟着改变）</p>
+<p>方便操作，特别是查询操作，减少复杂的SQL语句，增强可读性</p>
+<ul>
+<li>定义视图</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREAT VIEW view_name AS <span class="keyword">SELECT</span> column1, column2, ...</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> condition;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看视图</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">TABLES</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用视图</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> view_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建或替换视图</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> view_name <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> column1, column2, ...</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> condition;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除视图</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">VIEW</span> view_name;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-索引"><a href="#2-索引" class="headerlink" title="2. 索引"></a>2. 索引</h1><h2 id="2-1-索引是什么"><a href="#2-1-索引是什么" class="headerlink" title="2.1  索引是什么"></a>2.1  索引是什么</h2><p>一般的应用系统对比数据库的读写比例在10:1左右(<em>即有10次查询操作时有1次写的操作</em>)，插入操作和更新操作很少出现性能问题，遇到最多、最容易出问题还是一些复杂的查询操作，所以查询语句的优化显然是重中之重。当数据库中数据量很大时，查找数据会变得很慢。</p>
+<ul>
+<li>优化方案：<strong>索引</strong></li>
+</ul>
+<p>索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。</p>
+<p>更通俗的说，数据库索引好比是一本书前面的目录，能加快数据库的查询速度</p>
+<h2 id="2-2-索引原理"><a href="#2-2-索引原理" class="headerlink" title="2.2 索引原理"></a>2.2 索引原理</h2><p>除了词典，生活中随处可见索引的例子，如火车站的车次表、图书的目录等。它们的原理都是一样的，通过不断的缩小想要获得数据的范围来筛选出最终想要的结果，同时把随机的事件变成顺序的事件，也就是我们总是通过同一种查找方式来锁定数据。</p>
+<p>例：</p>
+<p>如果1000条数据，1到100分成第一段，101到200分成第二段，201到300分成第三段……这样查第250条数据，只要找第三段就可以了，一下子去除了90%的无效数据。</p>
+<h2 id="2-3-使用索引"><a href="#2-3-使用索引" class="headerlink" title="2.3 使用索引"></a>2.3 使用索引</h2><ul>
+<li>查看索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在表上创建索引，允许重复的值</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> table_name (column1, column2, ...);</span><br><span class="line"><span class="comment">-- 在表上创建唯一索引，不允许重复的值</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> index_name</span><br><span class="line"><span class="keyword">ON</span> table_name (column1, column2, ...);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除索引</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> index_name;</span><br></pre></td></tr></table></figure>
+
+<p><em>注意：使用索引更新表要比不使用表更新表花费更多的时间（因为索引也需要更新）。因此，仅在经常搜索的列上创建索引。</em></p>
+<h1 id="3-事务"><a href="#3-事务" class="headerlink" title="3. 事务"></a>3. 事务</h1><h2 id="3-1-简介"><a href="#3-1-简介" class="headerlink" title="3.1 简介"></a>3.1 简介</h2><p>所谓事务，它是一个操作序列。这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。</p>
+<p>例如，银行转帐工作：从一个帐号扣款并使另一个帐号增款，这两个操作要么都执行，要么都不执行。所以，应该把他们看成一个事务。事务是数据库维护数据一致性的单位，在每个事务结束时，都能保持数据一致性。</p>
+<h2 id="3-2-事务四大特性"><a href="#3-2-事务四大特性" class="headerlink" title="3.2 事务四大特性"></a>3.2 事务四大特性</h2><ul>
+<li>原子性（Atomicity）</li>
+</ul>
+<blockquote>
+<p>一个事务必须被视为一个不可分割的最小工作单元，整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对于一个事务来说，不可能只执行其中的一部分操作，这就是事务的原子性</p>
+</blockquote>
+<ul>
+<li>一致性（Consistency）</li>
+</ul>
+<blockquote>
+<p>数据库总是从一个一致性的状态转换到另一个一致性的状态。</p>
+</blockquote>
+<ul>
+<li>隔离性（Isolation）</li>
+</ul>
+<blockquote>
+<p>通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的。</p>
+</blockquote>
+<ul>
+<li>持久性（Durability）</li>
+</ul>
+<blockquote>
+<p>一旦事务提交，则其所做的修改会永久保存到数据库。</p>
+</blockquote>
+<h2 id="3-3-事务命令"><a href="#3-3-事务命令" class="headerlink" title="3.3 事务命令"></a>3.3 事务命令</h2><p>表的引擎类型必须是InnoDB类型才可以使用事务，这是MySQL表的默认引擎</p>
+<ul>
+<li>查看表的创建语句</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开启事务</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>提交事务</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>回滚事务</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ROLLBACK</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意事项</li>
+</ul>
+<blockquote>
+<p>修改数据的命令会自动的触发事务，包括<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code></p>
+<p>而在SQL语句中有<strong>手动开启事务</strong>的原因是：可以进行多次数据的修改，如果成功一起成功，否则一起会滚到之前的数据</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="blog.huggi.top/2020/07/26/MySQL%E6%9F%A5%E8%AF%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -989,7 +1262,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
