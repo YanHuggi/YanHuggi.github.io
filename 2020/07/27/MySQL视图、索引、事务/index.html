@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="1. 视图视图就是一条SELECT语句执行后返回的结果集 视图是对若干张基本表的引用，是一张虚拟表，查询语句执行的结果，不存储具体的数据（基本表数据发生了改变，视图也会跟着改变） 方便操作，特别是查询操作，减少复杂的SQL语句，增强可读性  定义视图  123CREAT VIEW view_name AS SELECT column1, column2, ...FROM table_nameWHE">
+<meta name="description" content="1. 视图视图就是一条SELECT语句执行后返回的结果集 视图是对若干张基本表的引用，是一张虚拟表，查询语句执行的结果，不存储具体的数据（基本表数据发生了改变，视图也会跟着改变）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL视图、索引、事务">
 <meta property="og:url" content="blog.huggi.top/2020/07/27/MySQL%E8%A7%86%E5%9B%BE%E3%80%81%E7%B4%A2%E5%BC%95%E3%80%81%E4%BA%8B%E5%8A%A1/index.html">
 <meta property="og:site_name" content="花枝">
-<meta property="og:description" content="1. 视图视图就是一条SELECT语句执行后返回的结果集 视图是对若干张基本表的引用，是一张虚拟表，查询语句执行的结果，不存储具体的数据（基本表数据发生了改变，视图也会跟着改变） 方便操作，特别是查询操作，减少复杂的SQL语句，增强可读性  定义视图  123CREAT VIEW view_name AS SELECT column1, column2, ...FROM table_nameWHE">
+<meta property="og:description" content="1. 视图视图就是一条SELECT语句执行后返回的结果集 视图是对若干张基本表的引用，是一张虚拟表，查询语句执行的结果，不存储具体的数据（基本表数据发生了改变，视图也会跟着改变）">
 <meta property="article:published_time" content="2020-07-27T12:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-28T02:01:58.038Z">
+<meta property="article:modified_time" content="2020-07-28T02:04:05.429Z">
 <meta property="article:author" content="Yan Huggi">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -380,6 +380,8 @@
       
         <h1 id="1-视图"><a href="#1-视图" class="headerlink" title="1. 视图"></a>1. 视图</h1><p>视图就是一条<code>SELECT</code>语句执行后返回的结果集</p>
 <p>视图是对若干张基本表的引用，是一张虚拟表，查询语句执行的结果，不存储具体的数据（基本表数据发生了改变，视图也会跟着改变）</p>
+<a id="more"></a>
+
 <p>方便操作，特别是查询操作，减少复杂的SQL语句，增强可读性</p>
 <ul>
 <li>定义视图</li>
